@@ -10,14 +10,14 @@ CC := g++
 CFLAGS := -Wall -g -std=c++2a
 OUTPUT := main
  
-all: main.o Card.o
+all: clean main.o Card.o
 	$(CC) $(CFLAGS) -o $(OUTPUT) main.o Card.o
 	
-main.o: $(SRC_DIR)/main.cpp $(INCLUDE_DIR)/Card.h
+main.o: $(SRC_DIR)/main.cpp $(INCLUDE_DIR)/Card.hpp
 	$(CC) $(CFLAGS) -c $(SRC_DIR)/main.cpp
 
-Card.o: $(SRC_DIR)/Card.cpp $(INCLUDE_DIR)/Card.h
+Card.o: $(SRC_DIR)/Card.cpp $(INCLUDE_DIR)/Card.hpp $(INCLUDE_DIR)/Common.hpp
 	$(CC) $(CFLAGS) -c $(SRC_DIR)/Card.cpp
 
 clean:
-	rm -rf  *.o
+	rm -rf  *.o $(OUTPUT)
