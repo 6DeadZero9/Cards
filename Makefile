@@ -16,8 +16,10 @@ all: clean main.o Card.o
 main.o: $(SRC_DIR)/main.cpp $(INCLUDE_DIR)/Card.hpp
 	$(CC) $(CFLAGS) -c $(SRC_DIR)/main.cpp
 
-Card.o: $(SRC_DIR)/Card.cpp $(INCLUDE_DIR)/Card.hpp $(INCLUDE_DIR)/Common.hpp
+Card.o: $(SRC_DIR)/Card.cpp $(INCLUDE_DIR)/Card.hpp $(INCLUDE_DIR)/Common.hpp $(INCLUDE_DIR)/CardException.hpp
 	$(CC) $(CFLAGS) -c $(SRC_DIR)/Card.cpp
+
+Player.o: $(SRC_DIR)/Card.cpp $(INCLUDE_DIR)/Card.hpp
 
 clean:
 	rm -rf  *.o $(OUTPUT)
