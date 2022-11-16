@@ -1,3 +1,6 @@
+#ifndef __PLAYER_H__
+#define __PLAYER_H__
+
 #include "Card.hpp"
 #include <vector>
 
@@ -8,4 +11,6 @@ class Player {
         vector<Card> player_cards;
 
         Player();
-}
+};
+
+#endif

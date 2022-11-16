@@ -1,5 +1,6 @@
 #ifndef __COMMON__
 #define __COMMON__
+
 #include <map>
 #include <string>
 #include <vector>

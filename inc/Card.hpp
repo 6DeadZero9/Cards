@@ -1,3 +1,6 @@
+#ifndef __CARD_H__
+#define __CARD_H__
+
 #include <string>
 #include <vector>
 
@@ -17,3 +20,5 @@ private:
     vector<string> card_repr;
     string card_symbol;
 };
+
+#endif
