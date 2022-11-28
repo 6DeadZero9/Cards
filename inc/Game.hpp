@@ -6,8 +6,14 @@
 
 class Game {
     public:
-        Game(void);
-        void menu();
+        Game(void) : player_1(), player_2(), deck() {};
+        void menu(void);
+        void start_game(void);
+        void play(void);
+
+    private:
+        Player player_1, player_2;
+        Deck deck;
 };
 
 #endif

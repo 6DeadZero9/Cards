@@ -13,7 +13,7 @@ public:
     short int card_role;
     bool is_main;
 
-    Card(short int card_number, short int card_role, bool is_main);
+    Card(short unsigned int card_number, short unsigned int card_role, bool is_main);
     bool compare(const Card& to_compare);
     void show_card(void);
 private:

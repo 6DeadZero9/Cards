@@ -6,7 +6,7 @@ set(INCLUDE_DIR "inc")
 set(SRC_DIR "src")
 
 set (CMAKE_CXX_STANDARD 20)
-set (CMAKE_CXX_FLAGS "-Wall -g")
+set (CMAKE_CXX_FLAGS "-g")
 
 file(GLOB ALL_SRC
         "${PROJECT_SOURCE_DIR}/inc/*.hpp"
