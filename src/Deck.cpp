@@ -6,7 +6,10 @@
 
 using namespace std;
 
-void Deck::initialize(unsigned char number_of_cards) {
+void Deck::initialize(unsigned char number_of_cards, Player* player_1, Player* player_2) {
+    this->original_deck.clear();
+    player_1->clear_cards();
+    player_2->clear_cards();
     unsigned role_number_of_cards = number_of_cards / NUMBER_OF_ROLES;
     short unsigned int main_card = rand() % NUMBER_OF_ROLES;
 
@@ -16,15 +19,15 @@ void Deck::initialize(unsigned char number_of_cards) {
         }
     }
 
-    auto rng = default_random_engine {};
-    shuffle(begin(this->original_deck), end(this->original_deck), rng);
+    shuffle(begin(this->original_deck), end(this->original_deck), random_device());
 
-    for (int length = 0; length < this->original_deck.size(); length++) {
-        this->original_deck[length].show_card();
+    for (auto &player : { player_1, player_2 }) {
+        for (int card = 0; card < FIRST_HAND; card++) {
+            player->push_card(this->original_deck.back());
+            this->original_deck.pop_back();
+        }
     }
 
-    cout << this->original_deck.size() << endl;
-
-    int tmp;
-    cin >> tmp;
+    player_1->show_cards();
+    int temp; cin >> temp;
 }

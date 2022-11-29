@@ -96,6 +96,16 @@ class Common {
                 } 
             },
         };
+
+        template <typename T>
+        vector<T> slicing(vector<T> const& v, int X, int Y) {
+            auto first = v.begin() + X;
+            auto last = v.begin() + Y + 1;
+
+            vector<T> vector(first, last);
+
+            return vector;
+        }
 };
 
 #endif

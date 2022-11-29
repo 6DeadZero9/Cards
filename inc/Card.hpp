@@ -11,13 +11,14 @@ class Card {
 public:
     short int card_number;
     short int card_role;
+    vector<string> card_repr;
     bool is_main;
 
     Card(short unsigned int card_number, short unsigned int card_role, bool is_main);
     bool compare(const Card& to_compare);
     void show_card(void);
+    string show_symbol(void) { return this->card_symbol; };
 private:
-    vector<string> card_repr;
     string card_symbol;
 };
 

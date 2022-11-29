@@ -62,12 +62,11 @@ void Game::play(void) {
 
         switch (choice) {
         case 1:
-            this->deck.initialize(36);
+            this->deck.initialize(36, &(this->player_1), &(this->player_2));
             break;
         case 2:
-            this->deck.initialize(52);
+            this->deck.initialize(52, &(this->player_1), &(this->player_2));
             break;
-        
         default:
             break;
         }
