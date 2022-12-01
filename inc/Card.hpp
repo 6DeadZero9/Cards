@@ -12,6 +12,7 @@ public:
     short int card_number;
     short int card_role;
     vector<string> card_repr;
+    vector<string> card_back;
     bool is_main;
 
     Card(short unsigned int card_number, short unsigned int card_role, bool is_main);

@@ -12,7 +12,7 @@ class Player {
     public: 
         Player(void) {};
         void push_card(Card card);
-        void show_cards(void);
+        void show_cards(bool front);
         void clear_cards(void) { this->player_cards.clear(); };
     
     private:

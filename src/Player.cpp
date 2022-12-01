@@ -10,15 +10,16 @@ void Player::push_card(Card card) {
     this->player_cards.push_back(card);
 }
 
-void Player::show_cards(void) {
+void Player::show_cards(bool front) {
     if (this->player_cards.empty()) {
         return;
     }
     for (int step = 0; step < this->player_cards.back().card_repr.size(); step++) {
         int card_step = 0;
         for (auto &card : this->player_cards) {
+            vector<string> show = front ? card.card_repr : card.card_back;
             string temp = card.show_symbol();
-            string current_string = card_step != this->player_cards.size() - 1 ? card.card_repr[step].substr(0, 8) : card.card_repr[step];
+            string current_string = card_step != this->player_cards.size() - 1 ? show[step].substr(0, 8) : show[step];
             if (temp.size() == 1) card_step % 2 == 0 ? temp.insert(0, " ") : temp.append(" ");
             
 

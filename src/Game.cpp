@@ -33,14 +33,15 @@ void Game::menu(void) {
         print_game_name();
         cout << endl << endl << "\t\t1. Play\n\t\t2. Exit" << endl << endl;   
 
-        int choice;
+        char choice;
         cout << "Your choice: "; cin >> choice;
+        cin.sync();
 
         switch (choice) {
-        case 1:
+        case '1':
             this->play();
             break;
-        case 2:
+        case '2':
             exit(0);
             break;
         
@@ -51,21 +52,24 @@ void Game::menu(void) {
 }
 
 void Game::play(void) {
-    while (true) {
+    bool outer_loop = true;
+    while (outer_loop) {
         cls();
         cout << endl << endl;  
         print_game_name();
         cout << endl << endl << "\t\t1. 36 cards\n\t\t2. 52 cards" << endl << endl;  
 
-        int choice;
+        char choice;
         cout << "Your choice: "; cin >> choice;
 
         switch (choice) {
-        case 1:
+        case '1':
             this->deck.initialize(36, &(this->player_1), &(this->player_2));
+            outer_loop = false;
             break;
-        case 2:
+        case '2':
             this->deck.initialize(52, &(this->player_1), &(this->player_2));
+            outer_loop = false;
             break;
         default:
             break;

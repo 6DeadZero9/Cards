@@ -16,6 +16,7 @@ Card::Card (short unsigned int card_number, short unsigned int card_role, bool i
 
     this->card_symbol = common.card_mapping[this->card_number];
     this->card_repr = common.cards[this->card_role];
+    this->card_back = common.cards[4];
 }
 
 bool Card::compare(const Card& to_compare) {

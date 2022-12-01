@@ -27,7 +27,4 @@ void Deck::initialize(unsigned char number_of_cards, Player* player_1, Player* p
             this->original_deck.pop_back();
         }
     }
-
-    player_1->show_cards();
-    int temp; cin >> temp;
 }
