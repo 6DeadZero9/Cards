@@ -18,7 +18,7 @@ void Player::show_cards(bool front) {
         int card_step = 0;
         for (auto &card : this->player_cards) {
             vector<string> show = front ? card.card_repr : card.card_back;
-            string temp = card.show_symbol();
+            string temp = card.card_symbol;
             string current_string = card_step != this->player_cards.size() - 1 ? show[step].substr(0, 8) : show[step];
             if (temp.size() == 1) card_step % 2 == 0 ? temp.insert(0, " ") : temp.append(" ");
             
@@ -32,4 +32,14 @@ void Player::show_cards(bool front) {
             card_step++;
         }
     }
+}
+
+Card* Player::check_samallest_main(void) {
+    Card* smallest = NULL;
+    for (auto &card : this->player_cards) {
+        if (card.is_main) {
+            smallest = &card;
+        }
+    }
+    return smallest;
 }

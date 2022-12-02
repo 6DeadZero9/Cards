@@ -11,7 +11,7 @@ class Deck {
     public:
         Deck() {};
 
-        void initialize(unsigned char number_of_cards, Player* player_1, Player* player_2);
+        void initialize(unsigned char number_of_cards, vector<Player> *players);
     private:
         vector <Card> original_deck;
         vector <Card> used_deck;

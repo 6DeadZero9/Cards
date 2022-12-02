@@ -3,16 +3,19 @@
 
 #include "../inc/Deck.hpp"
 #include "../inc/Player.hpp"
+#include "vector"
+
+using std::vector;
 
 class Game {
     public:
-        Game(void) : player_1(), player_2(), deck() {};
+        Game(short unsigned int number_of_players);
         void menu(void);
         void start_game(void);
         void play(void);
 
     private:
-        Player player_1, player_2;
+        vector<Player> players;
         Deck deck;
 };
 

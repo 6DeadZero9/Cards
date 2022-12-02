@@ -14,4 +14,3 @@ file(GLOB ALL_SRC
         )
 
 add_executable(${PROJECT_NAME} ${ALL_SRC})
-

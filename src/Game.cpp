@@ -1,5 +1,8 @@
+#define FMT_HEADER_ONLY
+
 #include "../inc/Game.hpp"
 #include "../inc/libfiglet.hpp"
+#include <fmt/format.h>
 #include <iostream>
 #include <string>
 #include <cstdlib>
@@ -10,21 +13,23 @@ using namespace std;
 void cls(void)
 {
     #ifdef WINDOWS
-    std::system("cls");
+    system("cls");
     #else
-    std::system ("clear");
+    system ("clear");
     #endif
 }
 
 void print_game_name(void) {
     const auto current_font = figlet(flf_font::make_shared("../fonts/Bloody.flf"), full_width::make_shared());
     cout << current_font("Durak") <<  endl;
-
 }
 
-void print_starting_menu_options(void) {
-    
-}
+Game::Game(short unsigned int number_of_players) : players(), deck() {
+    for (short unsigned int step = 0; step < number_of_players; step++) {
+        string name = "Player {}";
+        this->players.push_back(Player(fmt::format(name, step)));
+    }
+};
 
 void Game::menu(void) {
     while (true) {
@@ -64,15 +69,15 @@ void Game::play(void) {
 
         switch (choice) {
         case '1':
-            this->deck.initialize(36, &(this->player_1), &(this->player_2));
+            this->deck.initialize(36, &this->players);
             outer_loop = false;
             break;
         case '2':
-            this->deck.initialize(52, &(this->player_1), &(this->player_2));
+            this->deck.initialize(52, &this->players);
             outer_loop = false;
             break;
         default:
             break;
         }
-    }
+    } 
 }

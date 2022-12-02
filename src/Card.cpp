@@ -9,10 +9,9 @@
 using namespace std;
 Common common = Common();
 
-Card::Card (short unsigned int card_number, short unsigned int card_role, bool is_main) {
+Card::Card (short unsigned int card_number, short unsigned int card_role) {
     this->card_number = card_number;
     this->card_role = card_role;
-    this->is_main = is_main;
 
     this->card_symbol = common.card_mapping[this->card_number];
     this->card_repr = common.cards[this->card_role];
