@@ -2,17 +2,13 @@
 #include "../inc/Player.hpp"
 #include <vector>
 
-#define MAX_NUMBER_ONE_ROLE 14
-#define FIRST_HAND 6
-
-using std::vector;
-
 class Deck {
     public:
         Deck() {};
 
-        void initialize(unsigned char number_of_cards, vector<Player> *players);
+        void initialize(unsigned char number_of_cards, std::vector<Player> *players);
+        void show_deck(void);
     private:
-        vector <Card> original_deck;
-        vector <Card> used_deck;
+        std::vector<Card> original_deck;
+        std::vector<Card> used_deck;
 };

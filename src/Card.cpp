@@ -1,4 +1,4 @@
-#define FMT_HEADER_ONLY
+#define FMT_HEADER_ONLYstring
 
 #include <iostream>
 #include <fmt/format.h>
@@ -7,9 +7,9 @@
 #include "../inc/CardException.hpp"
 
 using namespace std;
-Common common = Common();
 
 Card::Card (short unsigned int card_number, short unsigned int card_role) {
+    Common common = Common();
     this->card_number = card_number;
     this->card_role = card_role;
 
@@ -31,7 +31,7 @@ bool Card::compare(const Card& to_compare) {
             return false;
     }
     catch (CardException &) {
-        cout << "Can't compare two identical cards, exiting..." << endl;
+        std::cout << "Can't compare two identical cards, exiting..." << std::endl;
         exit(1);
     }
 }
@@ -40,7 +40,7 @@ void Card::show_card (void) {
     int count = 0;
     
     for (auto& step : this->card_repr) {
-        string temp = this->card_symbol;
+        std::string temp = this->card_symbol;
 
         if (this->card_symbol.length() == 1) {
             if (count % 2 == 0)
@@ -49,7 +49,7 @@ void Card::show_card (void) {
                 temp.append(" ");
         }
 
-        cout << fmt::format(step, temp) << endl; 
+        std::cout << fmt::format(step, temp) << std::endl; 
 
         count++;
     }

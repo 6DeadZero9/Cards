@@ -5,15 +5,16 @@
 #include <string>
 #include <vector>
 
-using std::map;
-using std::vector;
-using std::string;
-
+#define MAX_NUMBER_ONE_ROLE 14
+#define NUMBER_OF_PLAYERS 2
+#define CARD_VISIBILITY 8
 #define NUMBER_OF_ROLES 4
+#define FIRST_HAND 6
+#define SHOW_DECK 2
 
 class Common {
     public:
-        map<short int, string> card_mapping = {
+        std::map<short int, std::string> card_mapping = {
             { 2, "2" },
             { 3, "3" },
             { 4, "4" },
@@ -29,7 +30,7 @@ class Common {
             { 14, "A" },
         };
 
-        map<short int, vector<string>> cards = {
+        std::map<short int, std::vector<std::string>> cards = {
             {
                 0, {
                     "/---------------\\",
@@ -106,18 +107,18 @@ class Common {
                     "||     \\ /     ||",
                     "||      ^      ||",
                     "||     / \\     ||",
-                    "| -----   -----  ",
+                    "| -----   ----- |",
                     "\\---------------/"
                 } 
             },
         };
 
         template <typename T>
-        vector<T> slicing(vector<T> const& v, int X, int Y) {
+        std::vector<T> slicing(std::vector<T> const& v, int X, int Y) {
             auto first = v.begin() + X;
             auto last = v.begin() + Y + 1;
 
-            vector<T> vector(first, last);
+            std::vector<T> vector(first, last);
 
             return vector;
         }

@@ -5,8 +5,6 @@
 #include "../inc/Player.hpp"
 #include "vector"
 
-using std::vector;
-
 class Game {
     public:
         Game(short unsigned int number_of_players);
@@ -15,7 +13,7 @@ class Game {
         void play(void);
 
     private:
-        vector<Player> players;
+        std::vector<Player> players;
         Deck deck;
 };
 
