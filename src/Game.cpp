@@ -34,6 +34,22 @@ Game::Game(short unsigned int number_of_players) : players(), deck() {
     }
 };
 
+unsigned int Game::determine_first_player(void) {
+    Card *smallest_card = NULL;
+    unsigned int first_player = 0;
+    unsigned int counter = 0;
+    for (auto &player : this->players ) {
+        Card *current_card = player.check_samallest_main();
+        if (current_card != NULL && (smallest_card == NULL || (current_card->is_main && !current_card->compare(*smallest_card)))) {
+            smallest_card = current_card;
+            first_player = counter;
+        }
+        counter++;
+    }
+
+    return first_player;
+}
+
 void Game::menu(void) {
     while (true) {
         print_game_name("\t\t1. Play\n\t\t2. Exit");
@@ -48,7 +64,6 @@ void Game::menu(void) {
         case 2:
             exit(0);
             break;
-        
         default:
             break;
         }
@@ -75,11 +90,15 @@ void Game::play(void) {
         default:
             break;
         }
-    } 
+    }
 
     while (true) {
         print_game_name("");
+        this->players[0].show_cards(true);
+        this->players[1].show_cards(true);
         this->deck.show_deck();
+        int test = this->determine_first_player();
+        std::cout << test << std::endl;
         char temp; std::cin >> temp; std::string flush; getline(std::cin, flush);
     }
 }

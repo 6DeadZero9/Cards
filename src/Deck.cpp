@@ -29,7 +29,7 @@ void Deck::initialize(unsigned char number_of_cards, std::vector<Player> *player
 
     shuffle(begin(this->original_deck), end(this->original_deck), random_device());
 
-    for (auto card : this->original_deck) {
+    for (auto &card : this->original_deck) {
         if (card.card_role == this->original_deck[0].card_role) {
             card.is_main = true;
         }

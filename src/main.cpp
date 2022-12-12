@@ -3,4 +3,5 @@
 
 int main(int argc, char* argv[]) {
     Game(NUMBER_OF_PLAYERS).menu();
+    return 0;
 }

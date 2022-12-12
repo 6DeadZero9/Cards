@@ -9,6 +9,7 @@ class Game {
     public:
         Game(short unsigned int number_of_players);
         void menu(void);
+        unsigned int determine_first_player(void);
         void start_game(void);
         void play(void);
 

@@ -11,4 +11,5 @@ class Deck {
     private:
         std::vector<Card> original_deck;
         std::vector<Card> used_deck;
+        std::vector<Card> table;
 };

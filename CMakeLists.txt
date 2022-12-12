@@ -1,9 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-
 project(Cards)
-
-set(INCLUDE_DIR "inc")
-set(SRC_DIR "src")
 
 set (CMAKE_CXX_STANDARD 20)
 set (CMAKE_CXX_FLAGS "-g")
