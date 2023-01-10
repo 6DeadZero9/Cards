@@ -14,7 +14,6 @@ void Deck::initialize(unsigned char number_of_cards, std::vector<Player> *player
     unsigned role_number_of_cards = number_of_cards / NUMBER_OF_ROLES;
     unsigned cards_for_one_player = number_of_cards / players->size();
     cards_for_one_player = cards_for_one_player < FIRST_HAND ? cards_for_one_player : FIRST_HAND;
-    short unsigned int main_card;
    
     this->original_deck.clear();
     for (auto &player : *players) {

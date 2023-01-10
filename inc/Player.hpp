@@ -13,6 +13,11 @@ class Player {
         void push_card(Card card);
         void show_cards(bool front);
         void clear_cards(void) { this->player_cards.clear(); };
+        void push_cards(std::vector<Card> new_cards) { this->player_cards.insert(
+            std::end(this->player_cards), 
+            std::begin(new_cards), 
+            std::end(new_cards)); 
+        };
         Card* check_samallest_main(void);
     
     private:
