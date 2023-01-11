@@ -30,6 +30,13 @@ class Common {
             { 14, "A" },
         };
 
+        std::map<short int, std::string> small_card_repr = {
+            { 0, "\u2660" },
+            { 1, "\u2666" },
+            { 2, "\u2663" },
+            { 3, "\u2665" },
+        };
+
         std::map<short int, std::vector<std::string>> cards = {
             {
                 0, {

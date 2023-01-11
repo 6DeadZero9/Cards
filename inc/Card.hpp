@@ -8,6 +8,7 @@ class Card {
 public:
     short int card_number;
     short int card_role;
+    std::string small_card_repr;
     std::vector<std::string> card_repr;
     std::vector<std::string> card_back;
     std::string card_symbol;

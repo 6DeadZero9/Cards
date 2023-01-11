@@ -82,6 +82,18 @@ void Game::show_table(unsigned int current_player) {
 
 }
 
+unsigned int Game::card_choice(unsigned int current_player) {
+    char choice;
+
+    while (true) {
+        print_title_and_text();
+        show_table(current_player);
+        print_title_and_text("Choose the card you want to place:", false);
+
+        std::cout << "Your choice: "; std::cin >> choice;
+    }
+}
+
 void Game::menu(void) {
     while (true) {
         print_title_and_text("\t\t1. Play\n\t\t2. Exit");
@@ -161,7 +173,19 @@ void Game::play(void) {
         std::cout << "Your choice: "; std::cin >> choice;
         switch (choice) {
         case '1':
-            if (!first_card_of_the_turn) first_card_of_the_turn = true;
+            if (!defendant_turn) {
+                
+
+                if (!first_card_of_the_turn) {
+
+                    // first_card_of_the_turn = true;
+                }
+
+            }
+            else {
+
+            }
+            first_card_of_the_turn = true;
             break;
         case '2':
             if (!defendant_turn) {

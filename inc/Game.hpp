@@ -13,6 +13,7 @@ class Game {
         void start_game(void);
         void play(void);
         void show_table(unsigned int current_player);
+        unsigned int card_choice(unsigned int current_player);
         void next_turn(void);
 
     private:

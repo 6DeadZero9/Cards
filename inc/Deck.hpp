@@ -1,6 +1,8 @@
 #include "../inc/Card.hpp"
 #include "../inc/Player.hpp"
 #include <vector>
+#include <string>
+#include <unordered_set>
 
 class Deck {
     public:
@@ -15,6 +17,7 @@ class Deck {
         
         void show_deck(void);
         std::vector<Card> table;
+        std::unordered_set<std::string> table_symbols;
 
     private:
         std::vector<Card> original_deck;

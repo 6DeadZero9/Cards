@@ -14,6 +14,7 @@ Card::Card (short unsigned int card_number, short unsigned int card_role) {
     this->card_role = card_role;
 
     this->card_symbol = common.card_mapping[this->card_number];
+    this->small_card_repr = common.small_card_repr[this->card_role];
     this->card_repr = common.cards[this->card_role];
     this->card_back = common.cards[4];
 }
