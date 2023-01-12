@@ -34,13 +34,13 @@ Game::Game(short unsigned int number_of_players) : players(), deck() {
         std::string name;
         std::cout << fmt::format("Player {} name: ", step); std::cin >> name; std::string flush; getline(std::cin, flush);
 
-        this->players.push_back(Player(fmt::format(name, step)));
+        players.push_back(Player(fmt::format(name, step)));
     }
 };
 
 void Game::next_turn(void) {
     current_player_offset = current_player;
-    defendant = current_player + 1 >= this->players.size() ? 0 : current_player + 1;
+    defendant = current_player + 1 >= players.size() ? 0 : current_player + 1;
     current_round++;
     first_card_of_the_turn = false;
     defendant_turn = false;
@@ -53,7 +53,7 @@ unsigned int Game::determine_first_player(void) {
     Card *smallest_card = NULL;
     unsigned int first_player = 0;
     unsigned int counter = 0;
-    for (auto &player : this->players ) {
+    for (auto &player : players ) {
         Card *current_card = player.check_samallest_main();
         if (current_card != NULL && (smallest_card == NULL || (current_card->is_main && !current_card->compare(*smallest_card)))) {
             smallest_card = current_card;
@@ -71,26 +71,38 @@ void Game::show_table(unsigned int current_player) {
     for (auto &player : players) {
         if (current_player != counter) {
             std::cout << players.at(counter).player_name << std::endl;
-            player.show_cards(false);   
+            player.show_cards(false, false);   
         }
         counter++;
     }
-    this->deck.show_deck();
+    deck.show_deck();
     std::cout << players.at(current_player).player_name << std::endl;
-    players.at(current_player).show_cards(true);
+    players.at(current_player).show_cards(true, false);
     std::cout << std::endl << fmt::format("Current round: {}", current_round) << std::endl;
-
 }
 
 unsigned int Game::card_choice(unsigned int current_player) {
-    char choice;
+    std::string choice;
+    unsigned int output = 0;
 
     while (true) {
         print_title_and_text();
         show_table(current_player);
         print_title_and_text("Choose the card you want to place:", false);
 
+        players.at(current_player).show_cards(false, true);
+
         std::cout << "Your choice: "; std::cin >> choice;
+        
+        try {
+            output = std::stoi(choice);
+        }
+        catch (std::invalid_argument) {
+            continue;
+        }
+
+        if (!players.at(current_player).check_if_card_exists(output)) continue;
+        return output; 
     }
 }
 
@@ -103,7 +115,7 @@ void Game::menu(void) {
 
         switch (choice) {
         case '1':
-            this->play();
+            play();
             break;
         case '2':
             exit(0);
@@ -116,6 +128,7 @@ void Game::menu(void) {
 
 void Game::play(void) {
     bool outer_loop = true;
+    unsigned int choosen_card;
     char choice;
 
     while (outer_loop) {
@@ -126,11 +139,11 @@ void Game::play(void) {
 
         switch (choice) {
         case '1':
-            this->deck.initialize(36, &this->players);
+            deck.initialize(36, &players);
             outer_loop = false;
             break;
         case '2':
-            this->deck.initialize(52, &this->players);
+            deck.initialize(52, &players);
             outer_loop = false;
             break;
         default:
@@ -138,18 +151,18 @@ void Game::play(void) {
         }
     }
 
-    current_player = this->determine_first_player();
+    current_player = determine_first_player();
     current_round = 0;
     next_turn();
 
     while (true) {
         print_title_and_text();
-        this->show_table(current_player_offset);
+        show_table(current_player_offset);
         if (!defendant_turn) {
             if ((current_player_offset == defendant) || std::binary_search(current_turn_players_end.begin(), 
                                                                            current_turn_players_end.end(), 
                                                                            current_player_offset)) {
-                current_player_offset = current_player_offset + 1 >= this->players.size() ? 0 : current_player_offset + 1;
+                current_player_offset = current_player_offset + 1 >= players.size() ? 0 : current_player_offset + 1;
                 continue;
             }
             else {
@@ -173,31 +186,32 @@ void Game::play(void) {
         std::cout << "Your choice: "; std::cin >> choice;
         switch (choice) {
         case '1':
+            choosen_card = card_choice(current_player_offset);
             if (!defendant_turn) {
-                
-
                 if (!first_card_of_the_turn) {
-
-                    // first_card_of_the_turn = true;
+                    Card temp = players.at(current_player_offset).get_card(choosen_card, true);
+                    deck.table.push_back(temp);
+                    first_card_of_the_turn = true;
                 }
+                else {
 
+                }
             }
             else {
 
             }
-            first_card_of_the_turn = true;
             break;
         case '2':
             if (!defendant_turn) {
                 if (first_card_of_the_turn) {
                     current_turn_players_end.push_back(current_player_offset);
-                    if (current_turn_players_end.size() == this->players.size() - 1) {
+                    if (current_turn_players_end.size() == players.size() - 1) {
                         if (!defendant_takes_cards) {
                             current_player = defendant;
                         }
                         else {
-                            players.at(defendant).push_cards(this->deck.table);
-                            current_player = defendant + 1 >= this->players.size() ? 0 : defendant + 1;
+                            players.at(defendant).push_cards(deck.table);
+                            current_player = defendant + 1 >= players.size() ? 0 : defendant + 1;
                         }
                         next_turn();
                         continue;
@@ -219,6 +233,6 @@ void Game::play(void) {
         }
         defendant_turn = !defendant_turn;
         if (defendant_takes_cards) defendant_turn = false;
-        current_player_offset = current_player_offset + 1 >= this->players.size() ? 0 : current_player_offset + 1;
+        current_player_offset = current_player_offset + 1 >= players.size() ? 0 : current_player_offset + 1;
     }
 }

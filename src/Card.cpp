@@ -42,13 +42,7 @@ void Card::show_card (void) {
     
     for (auto& step : this->card_repr) {
         std::string temp = this->card_symbol;
-
-        if (this->card_symbol.length() == 1) {
-            if (count % 2 == 0)
-                temp.insert(0, " ");
-            else
-                temp.append(" ");
-        }
+        if (temp.size() == 1) count % 2 == 0 ? temp.insert(0, " ") : temp.append(" ");
 
         std::cout << fmt::format(step, temp) << std::endl; 
 

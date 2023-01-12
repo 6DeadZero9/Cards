@@ -55,12 +55,25 @@ void Deck::show_deck(void) {
             std::vector<string> show = card_step ? card.card_back : card.card_repr;
             std::string temp = card.card_symbol;
             std::string current_string = card_step != cards_to_show ? show[step].substr(0, CARD_VISIBILITY) : show[step];
-            if (temp.size() == 1) card_step % 2 == 0 ? temp.insert(0, " ") : temp.append(" ");
+            if (temp.size() == 1) step % 2 == 0 ? temp.insert(0, " ") : temp.append(" ");
 
             std::cout << fmt::format(current_string, temp);
-            if (card_step == cards_to_show)  std::cout << std::endl;
 
             card_step++;
         }
+        card_step = 0;
+        if (table.size()) {
+            for (auto &card : table) {
+                std::string temp = card.card_symbol;
+                std::string current_string = card_step % 2 == 0 ? card.card_repr[step].substr(0, CARD_VISIBILITY) : card.card_repr[step];
+                if (card_step == table.size() - 1) current_string = card.card_repr[step];
+                if (card_step % 2 == 0) std::cout << "\t";
+                if (temp.size() == 1) card_step % 2 == 0 ? temp.insert(0, " ") : temp.append(" ");
+                std::cout << fmt::format(current_string, temp);
+
+                card_step++;
+            }
+        }
+        std::cout << std::endl;
     }
 }
