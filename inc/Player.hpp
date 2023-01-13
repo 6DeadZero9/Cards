@@ -12,6 +12,7 @@ class Player {
         Player(std::string player_name) { this->player_name = player_name; };
         void push_card(Card card);
         Card get_card(unsigned int index, bool remove);
+        void remove_card(unsigned int index);
         void show_cards(bool front, bool show_list);
         void clear_cards(void) { this->player_cards.clear(); };
         void push_cards(std::vector<Card> new_cards) { this->player_cards.insert(

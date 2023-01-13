@@ -66,7 +66,6 @@ unsigned int Game::determine_first_player(void) {
 }
 
 void Game::show_table(unsigned int current_player) {
-    std::cout << std::endl << fmt::format("Current player: {}", current_player) << std::endl;
     unsigned int counter {0};
     for (auto &player : players) {
         if (current_player != counter) {
@@ -127,9 +126,12 @@ void Game::menu(void) {
 }
 
 void Game::play(void) {
+    std::string current_text;
     bool outer_loop = true;
     unsigned int choosen_card;
+    bool is_move_possible;
     char choice;
+    Card temp = Card(0, 0);
 
     while (outer_loop) {
         print_title_and_text("\t\t1. 36 cards\n\t\t2. 52 cards");
@@ -166,39 +168,35 @@ void Game::play(void) {
                 continue;
             }
             else {
-                print_title_and_text(
-                    fmt::format(
-                        "{}'s turn\n\n\t1. Place card\n\t2. End turn(if first card was placed)\n\t3. End game", 
-                        players.at(current_player_offset).player_name), 
-                    false
-                );
+                current_text = "{}'s turn\n\n\t1. Place card\n\t2. End turn(if first card was placed)\n\t3. End game";
             }
         }
         else {
-            print_title_and_text(
-                fmt::format(
-                    "{}'s turn(defendant)\n\n\t1. Place card\n\t2. Take cards\n\t3. End game", 
-                    players.at(current_player_offset).player_name), 
-                false
-            );
+            current_text = "{}'s turn(defendant)\n\n\t1. Place card\n\t2. Take cards\n\t3. End game";
         }
+        print_title_and_text(
+            fmt::format(
+                current_text, 
+                players.at(current_player_offset).player_name), 
+            false
+        );
 
         std::cout << "Your choice: "; std::cin >> choice;
         switch (choice) {
         case '1':
             choosen_card = card_choice(current_player_offset);
-            if (!defendant_turn) {
-                if (!first_card_of_the_turn) {
-                    Card temp = players.at(current_player_offset).get_card(choosen_card, true);
-                    deck.table.push_back(temp);
-                    first_card_of_the_turn = true;
-                }
-                else {
-
-                }
+            temp = players.at(current_player_offset).get_card(choosen_card, false);
+            is_move_possible = (!defendant_turn) && (!first_card_of_the_turn || deck.table_symbols.count(temp.card_symbol));
+            is_move_possible = is_move_possible || (defendant_turn && temp.compare(deck.table.back()));
+            
+            if (is_move_possible) {
+                players.at(current_player_offset).remove_card(choosen_card);
+                deck.table.push_back(temp);
+                deck.table_symbols.insert(temp.card_symbol);
+                first_card_of_the_turn = true;
             }
             else {
-
+                continue;
             }
             break;
         case '2':

@@ -11,9 +11,13 @@ void Player::push_card(Card card) {
 
 Card Player::get_card(unsigned int index, bool remove) {
     Card temp = player_cards.at(index);
-    if (remove) player_cards.erase(player_cards.begin() + index);
+    if (remove) remove_card(index);
 
     return temp;
+}
+
+void Player::remove_card(unsigned int index) {
+    player_cards.erase(player_cards.begin() + index);
 }
 
 void Player::show_cards(bool front, bool show_list = false) {

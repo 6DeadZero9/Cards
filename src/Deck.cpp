@@ -7,7 +7,6 @@
 #include <iostream>
 #include <random>
 
-using namespace std;
 Common common = Common();
 
 void Deck::initialize(unsigned char number_of_cards, std::vector<Player> *players) {
@@ -26,7 +25,7 @@ void Deck::initialize(unsigned char number_of_cards, std::vector<Player> *player
         }
     }
 
-    shuffle(begin(this->original_deck), end(this->original_deck), random_device());
+    shuffle(begin(this->original_deck), end(this->original_deck), std::random_device());
 
     for (auto &card : this->original_deck) {
         if (card.card_role == this->original_deck[0].card_role) {
@@ -52,7 +51,7 @@ void Deck::show_deck(void) {
         int card_step = 0;
 
         for (auto &card : to_iterate) {
-            std::vector<string> show = card_step ? card.card_back : card.card_repr;
+            std::vector<std::string> show = card_step ? card.card_back : card.card_repr;
             std::string temp = card.card_symbol;
             std::string current_string = card_step != cards_to_show ? show[step].substr(0, CARD_VISIBILITY) : show[step];
             if (temp.size() == 1) step % 2 == 0 ? temp.insert(0, " ") : temp.append(" ");
