@@ -47,6 +47,7 @@ void Game::next_turn(void) {
     defendant_takes_cards = false;
     current_turn_players_end.clear();
     deck.table.clear();
+    deck.fiil_players_deck(&players);;
 }
 
 unsigned int Game::determine_first_player(void) {
@@ -105,6 +106,32 @@ unsigned int Game::card_choice(unsigned int current_player) {
     }
 }
 
+bool Game::check_for_game_ending(void) {
+    unsigned int player_that_lost;
+    char temp;
+
+    if (players_off_the_game.size() == players.size() - 1) {
+        for (int step; step < players.size(); step++) {
+            if (!std::binary_search(players_off_the_game.begin(), 
+                                    players_off_the_game.end(), 
+                                    step)) 
+            {
+                player_that_lost = step;
+                break;
+            }
+        }
+
+        print_title_and_text(
+            fmt::format(
+                "{} lost the game!!!", 
+                players.at(player_that_lost).player_name)
+        );
+        std::cout << "Press any button to exit."; std::cin >> temp;
+        return true;
+    }
+    return false;
+}
+
 void Game::menu(void) {
     while (true) {
         print_title_and_text("\t\t1. Play\n\t\t2. Exit");
@@ -126,11 +153,12 @@ void Game::menu(void) {
 }
 
 void Game::play(void) {
-    std::string current_text;
-    bool outer_loop = true;
     unsigned int choosen_card;
+    bool outer_loop = true;
     bool is_move_possible;
+    bool is_game_ended;
     char choice;
+    std::string current_text;
     Card temp = Card(0, 0);
 
     while (outer_loop) {
@@ -154,6 +182,7 @@ void Game::play(void) {
     }
 
     current_player = determine_first_player();
+    players_off_the_game.clear();
     current_round = 0;
     next_turn();
 
@@ -194,6 +223,12 @@ void Game::play(void) {
                 deck.table.push_back(temp);
                 deck.table_symbols.insert(temp.card_symbol);
                 first_card_of_the_turn = true;
+                
+                if (!deck.deck_size() && !players.at(current_player_offset).deck_size()) {
+                    players_off_the_game.push_back(current_player_offset);
+                    is_game_ended = check_for_game_ending();
+                    return;
+                } 
             }
             else {
                 continue;
@@ -229,8 +264,7 @@ void Game::play(void) {
         default:
             break;
         }
-        defendant_turn = !defendant_turn;
-        if (defendant_takes_cards) defendant_turn = false;
+        defendant_turn = defendant_takes_cards ? false : !defendant_turn;
         current_player_offset = current_player_offset + 1 >= players.size() ? 0 : current_player_offset + 1;
     }
 }

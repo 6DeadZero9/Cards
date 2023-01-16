@@ -41,8 +41,24 @@ void Deck::initialize(unsigned char number_of_cards, std::vector<Player> *player
     }
 }
 
+void Deck::fiil_players_deck(std::vector<Player> *players) {
+    for (auto &player : *players) {
+        int diff = FIRST_HAND - player.deck_size();
+        if (diff > 0) {
+            for (int card = 0; card < diff; card++) {
+                if (original_deck.size()) {
+                    player.push_card(this->original_deck.back());
+                    this->original_deck.pop_back();
+                }
+                else {
+                    return;
+                }
+            }
+        }
+    }
+}
+
 void Deck::show_deck(void) {
-    if (this->original_deck.empty()) return;
     Common common = Common();
     int cards_to_show = this->original_deck.size() > SHOW_DECK ? SHOW_DECK - 1 : this->original_deck.size();
     std::vector<Card> to_iterate = common.slicing(this->original_deck, 0, cards_to_show);

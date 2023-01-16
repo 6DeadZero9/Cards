@@ -11,17 +11,18 @@ class Player {
 
         Player(std::string player_name) { this->player_name = player_name; };
         void push_card(Card card);
-        Card get_card(unsigned int index, bool remove);
         void remove_card(unsigned int index);
         void show_cards(bool front, bool show_list);
-        void clear_cards(void) { this->player_cards.clear(); };
-        void push_cards(std::vector<Card> new_cards) { this->player_cards.insert(
-            std::end(this->player_cards), 
+        void clear_cards(void) { player_cards.clear(); };
+        void push_cards(std::vector<Card> new_cards) { player_cards.insert(
+            std::end(player_cards), 
             std::begin(new_cards), 
             std::end(new_cards)); 
         };
-        Card* check_samallest_main(void);
+        int deck_size(void) { return player_cards.size(); };
         bool check_if_card_exists(unsigned int index);
+        Card get_card(unsigned int index, bool remove);
+        Card* check_samallest_main(void);
     
     private:
         std::vector<Card> player_cards;

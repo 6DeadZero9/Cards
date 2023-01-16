@@ -15,6 +15,8 @@ class Deck {
             std::end(this->table)); 
         };
         
+        int deck_size(void) { return original_deck.size(); };
+        void fiil_players_deck(std::vector<Player> *players);
         void show_deck(void);
         std::vector<Card> table;
         std::unordered_set<std::string> table_symbols;
